@@ -100,7 +100,7 @@ async def process_images_task(background_tasks):
             logger.debug(f"Processing image: {file_path}")
             try:
                 tags = await process_image(file_path)
-                localDB.save_tags(filename, tags)
+                localDB.save_tags(filename, tags, file_path)
                 logger.info(f"Tags saved to database for {filename}: {tags}")
             except Exception as e:
                 logger.error(f"Error processing {filename}: {str(e)}")
@@ -116,7 +116,7 @@ async def process_image(file_path):
     tags = generate_tags(file_path)
     
     # Save tags to the database instead of the image
-    localDB.save_tags(filename, tags)
+    localDB.save_tags(filename, tags, file_path)
     logger.info(f"Tags saved to database for {filename}: {tags}")
     
     return tags

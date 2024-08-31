@@ -1,7 +1,7 @@
 import sys
 import os
 import logging
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QFileDialog, QListWidget, QLineEdit, QListWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QFileDialog, QListWidget, QLineEdit, QListWidgetItem, QMessageBox, QMenu, QDialog, QPushButton, QVBoxLayout
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt, QThreadPool, QRunnable, pyqtSlot, QObject, pyqtSignal, QTimer
 import requests
@@ -97,6 +97,11 @@ class ImageTaggerApp(QMainWindow):
         search_layout.addWidget(self.search_button)
         left_layout.addLayout(search_layout)
 
+        # Settings Button
+        self.settings_button = QPushButton("Settings")
+        self.settings_button.clicked.connect(self.open_settings)
+        left_layout.addWidget(self.settings_button)
+
         # Right panel
         right_panel = QWidget()
         right_layout = QVBoxLayout()
@@ -128,6 +133,10 @@ class ImageTaggerApp(QMainWindow):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.check_processing_status)
         self.processing_attempts = 0
+
+        # Add context menu for image list
+        self.image_list.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.image_list.customContextMenuRequested.connect(self.show_context_menu)
 
     def is_supported_image(self, filename):
         return filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic'))
@@ -238,20 +247,23 @@ class ImageTaggerApp(QMainWindow):
             return
 
         try:
-            response = requests.post("http://localhost:8000/search", json={"tags": search_tags})
-            if response.status_code == 200:
-                search_results = response.json()
-                self.image_list.clear()
-                for filename in search_results:
-                    self.image_list.addItem(filename)
-                logger.info(f"Found {len(search_results)} images")
-                self.status_label.setText(f"Found {len(search_results)} images")
+            # Query the database for images with matching tags
+            matching_images = localDB.search_images(search_tags)  # Now returns (name, file_location)
+            self.image_list.clear()  # Clear the current list
+
+            if matching_images:
+                for name, file_location in matching_images:
+                    self.image_list.addItem(name)  # Add image name to the list
+                    # Optionally store the file location in the item data for later use
+                    self.image_list.item(self.image_list.count() - 1).setData(Qt.UserRole, file_location)
+                logger.info(f"Found {len(matching_images)} images")
+                self.status_label.setText(f"Found {len(matching_images)} images")
             else:
-                logger.error(f"Failed to perform search. Status code: {response.status_code}")
-                self.status_label.setText("Failed to perform search")
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Error connecting to backend: {str(e)}")
-            self.status_label.setText(f"Error connecting to backend: {e}")
+                logger.info("No matching images found")
+                self.status_label.setText("No matching images found")
+        except Exception as e:
+            logger.error(f"Error during search: {str(e)}")
+            self.status_label.setText("Error during search")
 
     def process_images(self):
         logger.info("Starting image processing")
@@ -296,7 +308,7 @@ class ImageTaggerApp(QMainWindow):
             logger.error(f"Error connecting to backend: {str(e)}")
             self.processing_attempts += 1
 
-        if self.processing_attempts >= 30:  # Max attempts reached
+        if self.processing_attempts >= 2:  # Max attempts reached
             logger.warning("Failed to retrieve tags after multiple attempts")
             self.status_label.setText("Failed to retrieve tags after multiple attempts")
             self.timer.stop()
@@ -306,14 +318,59 @@ class ImageTaggerApp(QMainWindow):
         new_tag = self.new_tag_input.text().strip()
         if new_tag and self.image_list.currentItem():
             filename = self.image_list.currentItem().text()
+            file_location = os.path.join(self.selected_folder, filename)  # Get the full file path
             tags = localDB.get_tags(filename)
             tags.append(new_tag)
-            localDB.save_tags(filename, tags)
+            localDB.save_tags(filename, tags, file_location)  # Pass file_location here
             self.update_tags(filename)
             self.new_tag_input.clear()
             logger.info(f"Added new tag '{new_tag}' to {filename}")
         else:
             logger.warning("Failed to add tag: No tag entered or no image selected")
+
+    def show_context_menu(self, pos):
+        item = self.image_list.itemAt(pos)
+        if item:
+            context_menu = QMenu(self)
+            show_action = context_menu.addAction("Show in Explorer")
+            show_action.triggered.connect(lambda: self.show_in_explorer(item.text()))
+            context_menu.exec_(self.image_list.viewport().mapToGlobal(pos))
+
+    def show_in_explorer(self, filename):
+        image_path = os.path.join(self.selected_folder, filename)
+        if os.path.exists(image_path):
+            os.startfile(image_path)  # For Windows
+        else:
+            logger.warning(f"File does not exist: {image_path}")
+
+    def open_settings(self):
+        settings_window = SettingsWindow(self)
+        settings_window.exec_()  # Open the settings window
+
+class SettingsWindow(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Settings")
+        self.setGeometry(100, 100, 300, 200)
+
+        layout = QVBoxLayout()
+
+        # Reset Database Button
+        self.reset_button = QPushButton("Reset Database")
+        self.reset_button.clicked.connect(self.reset_database)
+        layout.addWidget(self.reset_button)
+
+        self.setLayout(layout)
+
+    def reset_database(self):
+        # Confirm before resetting the database
+        reply = QMessageBox.question(self, 'Confirm Reset', 
+                                     "Are you sure you want to reset the database?",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            localDB.reset_database()  # Call the function to reset the database
+            QMessageBox.information(self, 'Database Reset', "Database has been reset.")
+            self.close()
 
 if __name__ == "__main__":
     logger.info("Starting application")
