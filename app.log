@@ -1,0 +1,172 @@
+2024-08-31 18:24:22,552 - __main__ - INFO - Starting application
+2024-08-31 18:24:22,564 - __main__ - INFO - Initializing ImageTaggerApp
+2024-08-31 18:24:23,857 - __main__ - INFO - Selecting folder
+2024-08-31 18:24:28,506 - __main__ - INFO - Folder selected: C:/Users/Stas/Pictures/car
+2024-08-31 18:24:28,506 - __main__ - INFO - Sending folder to backend: C:/Users/Stas/Pictures/car
+2024-08-31 18:24:28,509 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:24:30,535 - urllib3.connectionpool - DEBUG - http://localhost:8000 "POST /set_folder HTTP/11" 200 55
+2024-08-31 18:24:30,535 - __main__ - INFO - Folder sent to backend successfully
+2024-08-31 18:24:30,536 - __main__ - INFO - Loading images
+2024-08-31 18:24:30,536 - __main__ - INFO - Loaded 2 images
+2024-08-31 18:24:32,189 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:32,189 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:32,194 - __main__ - INFO - Updating tags for: 2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:32,195 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:32,195 - __main__ - DEBUG - Updated tags for 2c879bff3c54396771c4f388db956071.jpg: []
+2024-08-31 18:24:32,611 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:32,618 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:33,762 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:24:33,762 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:24:33,768 - __main__ - INFO - Updating tags for: lotus espirit.jpg
+2024-08-31 18:24:33,768 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:24:33,770 - __main__ - DEBUG - Updated tags for lotus espirit.jpg: []
+2024-08-31 18:24:34,048 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:24:34,054 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:24:35,236 - __main__ - INFO - Starting image processing
+2024-08-31 18:24:35,237 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:24:37,271 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /process_images HTTP/11" 200 32
+2024-08-31 18:24:37,271 - __main__ - INFO - Processing started successfully
+2024-08-31 18:24:39,276 - __main__ - DEBUG - Checking processing status
+2024-08-31 18:24:39,277 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:25:34,250 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /get_tags HTTP/11" 200 63
+2024-08-31 18:25:34,251 - __main__ - DEBUG - Received tags: {'example_image.jpg': ['t', 'a', 'g', '1', ',', ' ', 't', 'a', 'g', '2']}
+2024-08-31 18:25:34,251 - __main__ - INFO - Processed 1 images
+2024-08-31 18:25:34,251 - __main__ - INFO - Updating tags for: lotus espirit.jpg
+2024-08-31 18:25:34,251 - __main__ - DEBUG - Updated tags for lotus espirit.jpg: []
+2024-08-31 18:25:39,607 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:25:39,607 - __main__ - DEBUG - Image found in cache: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:25:39,611 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:25:39,611 - __main__ - INFO - Updating tags for: 2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:25:39,611 - __main__ - DEBUG - Updated tags for 2c879bff3c54396771c4f388db956071.jpg: []
+2024-08-31 18:25:41,769 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:25:41,769 - __main__ - DEBUG - Image found in cache: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:25:41,769 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:25:41,769 - __main__ - INFO - Updating tags for: lotus espirit.jpg
+2024-08-31 18:25:41,769 - __main__ - DEBUG - Updated tags for lotus espirit.jpg: []
+2024-08-31 18:25:56,121 - __main__ - INFO - Starting image processing
+2024-08-31 18:25:56,122 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:25:58,150 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /process_images HTTP/11" 200 30
+2024-08-31 18:25:58,151 - __main__ - INFO - Processing started successfully
+2024-08-31 18:26:00,146 - __main__ - DEBUG - Checking processing status
+2024-08-31 18:26:00,147 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:26:02,187 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /get_tags HTTP/11" 200 63
+2024-08-31 18:26:02,187 - __main__ - DEBUG - Received tags: {'example_image.jpg': ['t', 'a', 'g', '1', ',', ' ', 't', 'a', 'g', '2']}
+2024-08-31 18:26:02,188 - __main__ - INFO - Processed 1 images
+2024-08-31 18:26:02,188 - __main__ - INFO - Updating tags for: lotus espirit.jpg
+2024-08-31 18:26:02,188 - __main__ - DEBUG - Updated tags for lotus espirit.jpg: []
+2024-08-31 18:26:36,344 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:26:36,344 - __main__ - DEBUG - Image found in cache: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:26:36,344 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:26:36,345 - __main__ - INFO - Updating tags for: 2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:26:36,345 - __main__ - DEBUG - Updated tags for 2c879bff3c54396771c4f388db956071.jpg: []
+2024-08-31 18:26:41,244 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:26:41,244 - __main__ - DEBUG - Image found in cache: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:26:41,245 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/car\lotus espirit.jpg
+2024-08-31 18:26:41,245 - __main__ - INFO - Updating tags for: lotus espirit.jpg
+2024-08-31 18:26:41,245 - __main__ - DEBUG - Updated tags for lotus espirit.jpg: []
+2024-08-31 18:31:45,053 - __main__ - INFO - Starting application
+2024-08-31 18:31:45,061 - __main__ - INFO - Initializing ImageTaggerApp
+2024-08-31 18:31:47,267 - __main__ - INFO - Selecting folder
+2024-08-31 18:31:50,001 - __main__ - INFO - Folder selected: C:/Users/Stas/Pictures/Camera Roll
+2024-08-31 18:31:50,001 - __main__ - INFO - Sending folder to backend: C:/Users/Stas/Pictures/Camera Roll
+2024-08-31 18:31:50,005 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:31:52,038 - urllib3.connectionpool - DEBUG - http://localhost:8000 "POST /set_folder HTTP/11" 200 63
+2024-08-31 18:31:52,038 - __main__ - INFO - Folder sent to backend successfully
+2024-08-31 18:31:52,038 - __main__ - INFO - Loading images
+2024-08-31 18:31:52,038 - __main__ - INFO - Loaded 10 images
+2024-08-31 18:31:52,952 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:52,952 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:52,958 - __main__ - INFO - Updating tags for: 317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:52,958 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:52,958 - __main__ - DEBUG - Updated tags for 317196737_131367436419094_1850881727585622897_n.jpg: []
+2024-08-31 18:31:53,384 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:53,392 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:55,091 - __main__ - INFO - Starting image processing
+2024-08-31 18:31:55,092 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:31:57,132 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /process_images HTTP/11" 200 32
+2024-08-31 18:31:57,132 - __main__ - INFO - Processing started successfully
+2024-08-31 18:31:59,142 - __main__ - DEBUG - Checking processing status
+2024-08-31 18:31:59,143 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-08-31 18:32:01,193 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /get_tags HTTP/11" 200 1431
+2024-08-31 18:32:01,197 - __main__ - DEBUG - Received tags: {'example_image.jpg': ['t', 'a', 'g', '1', ',', ' ', 't', 'a', 'g', '2'], '317009078_2115628711965612_5740521442233243612_n.jpg': ['"hair dryer",', '"lipstick",', '"mask",', '"bathtub",', '"bath towel",'], '317017476_1250346415526355_2875232753687967979_n.jpg': ['"lipstick",', '"ice pop",', '"hair dryer",', '"safety pin",', '"bath towel",'], '317032928_635478051611253_9110387673886695315_n.jpg': ['"lipstick",', '"bath towel",', '"hair dryer",', '"mask",', '"bathtub",'], '317196737_131367436419094_1850881727585622897_n.jpg': ['"lipstick",', '"hair dryer",', '"mask",', '"ice pop",', '"bath towel",'], '409139706_848130380326840_5412985015270451106_n.jpg': ['"wig",', '"abaya",', '"sunglasses",', '"barrette",', '"hair spray",'], '409188958_657016766590455_3024088115364459602_n.jpg': ['"lipstick",', '"hair dryer",', '"ping-pong ball",', '"barrette",', '"hot dog",'], '409381013_327279540113296_1078174754258482464_n.jpg': ['"abaya",', '"velvet",', '"cloak",', '"lipstick",', '"sweatshirt",'], '409384808_379562834469703_3994063111412072379_n.jpg': ['"lipstick",', '"scarf",', '"hair spray",', '"spider web",', '"filing cabinet",'], '409386326_341262268619362_8817199201887382097_n.jpg': ['"abaya",', '"sweatshirt",', '"hair spray",', '"hair dryer",', '"seat belt",'], '410132641_1149917812653015_4331220211198239690_n.jpg': ['"abaya",', '"cassette",', '"mobile phone",', '"iPod",', '"kimono",']}
+2024-08-31 18:32:01,197 - __main__ - INFO - Processed 11 images
+2024-08-31 18:32:01,197 - __main__ - INFO - Updating tags for: 317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:32:01,197 - __main__ - DEBUG - Updated tags for 317196737_131367436419094_1850881727585622897_n.jpg: ['"lipstick",', '"hair dryer",', '"mask",', '"ice pop",', '"bath towel",']
+2024-08-31 18:32:10,177 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:10,177 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:10,184 - __main__ - INFO - Updating tags for: 409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:10,184 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:10,184 - __main__ - DEBUG - Updated tags for 409139706_848130380326840_5412985015270451106_n.jpg: ['"wig",', '"abaya",', '"sunglasses",', '"barrette",', '"hair spray",']
+2024-08-31 18:32:10,510 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:10,517 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:11,192 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:32:11,192 - __main__ - DEBUG - Image found in cache: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:32:11,192 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:32:11,196 - __main__ - INFO - Updating tags for: 317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:32:11,196 - __main__ - DEBUG - Updated tags for 317196737_131367436419094_1850881727585622897_n.jpg: ['"lipstick",', '"hair dryer",', '"mask",', '"ice pop",', '"bath towel",']
+2024-08-31 18:32:11,546 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:11,546 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:11,553 - __main__ - INFO - Updating tags for: 317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:11,553 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:11,555 - __main__ - DEBUG - Updated tags for 317017476_1250346415526355_2875232753687967979_n.jpg: ['"lipstick",', '"ice pop",', '"hair dryer",', '"safety pin",', '"bath towel",']
+2024-08-31 18:32:11,976 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:11,984 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:13,033 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:32:13,033 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:32:13,041 - __main__ - INFO - Updating tags for: 317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:32:13,041 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:32:13,041 - __main__ - DEBUG - Updated tags for 317009078_2115628711965612_5740521442233243612_n.jpg: ['"hair dryer",', '"lipstick",', '"mask",', '"bathtub",', '"bath towel",']
+2024-08-31 18:32:13,450 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:32:13,458 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:32:14,623 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:14,623 - __main__ - DEBUG - Image found in cache: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:14,623 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:14,627 - __main__ - INFO - Updating tags for: 317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:32:14,627 - __main__ - DEBUG - Updated tags for 317017476_1250346415526355_2875232753687967979_n.jpg: ['"lipstick",', '"ice pop",', '"hair dryer",', '"safety pin",', '"bath towel",']
+2024-08-31 18:32:15,010 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:32:15,010 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:32:15,015 - __main__ - INFO - Updating tags for: 317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:32:15,015 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:32:15,017 - __main__ - DEBUG - Updated tags for 317032928_635478051611253_9110387673886695315_n.jpg: ['"lipstick",', '"bath towel",', '"hair dryer",', '"mask",', '"bathtub",']
+2024-08-31 18:32:15,385 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:32:15,389 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:32:15,530 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:15,531 - __main__ - DEBUG - Image found in cache: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:15,531 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:15,531 - __main__ - INFO - Updating tags for: 409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:32:15,532 - __main__ - DEBUG - Updated tags for 409139706_848130380326840_5412985015270451106_n.jpg: ['"wig",', '"abaya",', '"sunglasses",', '"barrette",', '"hair spray",']
+2024-08-31 18:32:18,902 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:32:18,902 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:32:18,907 - __main__ - INFO - Updating tags for: 409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:32:18,908 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:32:18,908 - __main__ - DEBUG - Updated tags for 409188958_657016766590455_3024088115364459602_n.jpg: ['"lipstick",', '"hair dryer",', '"ping-pong ball",', '"barrette",', '"hot dog",']
+2024-08-31 18:32:19,223 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:32:19,230 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:32:21,386 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:32:21,387 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:32:21,394 - __main__ - INFO - Updating tags for: 409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:32:21,394 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:32:21,395 - __main__ - DEBUG - Updated tags for 409381013_327279540113296_1078174754258482464_n.jpg: ['"abaya",', '"velvet",', '"cloak",', '"lipstick",', '"sweatshirt",']
+2024-08-31 18:32:21,668 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:32:21,669 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:32:21,674 - __main__ - INFO - Updating tags for: 409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:32:21,675 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:32:21,675 - __main__ - DEBUG - Updated tags for 409384808_379562834469703_3994063111412072379_n.jpg: ['"lipstick",', '"scarf",', '"hair spray",', '"spider web",', '"filing cabinet",']
+2024-08-31 18:32:21,719 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:32:21,726 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:32:21,919 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:32:21,919 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:32:21,925 - __main__ - INFO - Updating tags for: 409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:32:21,925 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:32:21,926 - __main__ - DEBUG - Updated tags for 409386326_341262268619362_8817199201887382097_n.jpg: ['"abaya",', '"sweatshirt",', '"hair spray",', '"hair dryer",', '"seat belt",']
+2024-08-31 18:32:22,021 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:32:22,029 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:32:22,207 - __main__ - INFO - Displaying image: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:32:22,207 - __main__ - DEBUG - Loading image from disk: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:32:22,213 - __main__ - INFO - Updating tags for: 410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:32:22,213 - __main__ - DEBUG - Starting to load image: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:32:22,214 - __main__ - DEBUG - Updated tags for 410132641_1149917812653015_4331220211198239690_n.jpg: ['"abaya",', '"cassette",', '"mobile phone",', '"iPod",', '"kimono",']
+2024-08-31 18:32:22,246 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:32:22,254 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:32:22,570 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:32:22,576 - __main__ - DEBUG - Image loaded successfully: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg

@@ -1,0 +1,129 @@
+2024-08-31 18:13:33,777 - main - INFO - Loading pre-trained ResNet model
+2024-08-31 18:13:34,142 - main - INFO - Loading ImageNet class labels
+2024-08-31 18:13:34,145 - main - INFO - Initializing database
+2024-08-31 18:13:34,147 - main - INFO - Retrieving all tags
+2024-08-31 18:13:42,947 - main - INFO - Folder set to: C:/Users/Stas/Pictures/car
+2024-08-31 18:13:48,575 - main - INFO - Processing images requested
+2024-08-31 18:13:48,575 - main - INFO - Starting background task to process 2 images
+2024-08-31 18:13:48,575 - main - INFO - Starting image processing task
+2024-08-31 18:13:48,576 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:13:48,576 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:13:48,576 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:13:48,874 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg: ['"grille",', '"convertible",', '"station wagon",', '"pickup truck",', '"limousine",']
+2024-08-31 18:13:48,877 - main - DEBUG - Saving tags to image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:14:24,592 - main - INFO - Loading pre-trained ResNet model
+2024-08-31 18:14:24,994 - main - INFO - Loading ImageNet class labels
+2024-08-31 18:14:24,998 - main - INFO - Initializing database
+2024-08-31 18:14:38,091 - main - INFO - Folder set to: C:/Users/Stas/Pictures/Camera Roll
+2024-08-31 18:14:44,996 - main - INFO - Processing images requested
+2024-08-31 18:14:44,996 - main - INFO - Starting background task to process 10 images
+2024-08-31 18:14:44,996 - main - INFO - Starting image processing task
+2024-08-31 18:14:44,996 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:14:44,997 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:14:44,997 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:14:45,155 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg: ['"hair dryer",', '"lipstick",', '"mask",', '"bathtub",', '"bath towel",']
+2024-08-31 18:14:45,155 - main - DEBUG - Saving tags to image: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:21:54,637 - main - INFO - Loading pre-trained ResNet model
+2024-08-31 18:21:54,979 - main - INFO - Loading ImageNet class labels
+2024-08-31 18:21:54,983 - main - INFO - Initializing database
+2024-08-31 18:24:24,025 - main - INFO - Loading pre-trained ResNet model
+2024-08-31 18:24:24,353 - main - INFO - Loading ImageNet class labels
+2024-08-31 18:24:24,357 - main - INFO - Initializing database
+2024-08-31 18:24:30,534 - main - INFO - Folder set to: C:/Users/Stas/Pictures/car
+2024-08-31 18:24:37,270 - main - INFO - Processing images requested
+2024-08-31 18:24:37,270 - main - INFO - Starting background task to process 2 images
+2024-08-31 18:24:37,270 - main - INFO - Starting image processing task
+2024-08-31 18:24:37,270 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:37,271 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:37,271 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:24:37,582 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg: ['"grille",', '"convertible",', '"station wagon",', '"pickup truck",', '"limousine",']
+2024-08-31 18:24:37,584 - main - DEBUG - Saving tags to image: C:/Users/Stas/Pictures/car\2c879bff3c54396771c4f388db956071.jpg
+2024-08-31 18:25:33,891 - main - INFO - Loading pre-trained ResNet model
+2024-08-31 18:25:34,242 - main - INFO - Loading ImageNet class labels
+2024-08-31 18:25:34,246 - main - INFO - Initializing database
+2024-08-31 18:25:34,250 - main - INFO - Retrieving all tags
+2024-08-31 18:25:58,150 - main - INFO - Processing images requested
+2024-08-31 18:25:58,150 - main - WARNING - No folder selected for processing
+2024-08-31 18:26:02,186 - main - INFO - Retrieving all tags
+2024-08-31 18:31:20,695 - main - INFO - Loading pre-trained ResNet model
+2024-08-31 18:31:21,031 - main - INFO - Loading ImageNet class labels
+2024-08-31 18:31:21,034 - main - INFO - Initializing database
+2024-08-31 18:31:39,428 - main - INFO - Loading pre-trained ResNet model
+2024-08-31 18:31:39,796 - main - INFO - Loading ImageNet class labels
+2024-08-31 18:31:39,800 - main - INFO - Initializing database
+2024-08-31 18:31:52,038 - main - INFO - Folder set to: C:/Users/Stas/Pictures/Camera Roll
+2024-08-31 18:31:57,131 - main - INFO - Processing images requested
+2024-08-31 18:31:57,131 - main - INFO - Starting background task to process 10 images
+2024-08-31 18:31:57,131 - main - INFO - Starting image processing task
+2024-08-31 18:31:57,132 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:31:57,132 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:31:57,132 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg
+2024-08-31 18:31:57,296 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\317009078_2115628711965612_5740521442233243612_n.jpg: ['"hair dryer",', '"lipstick",', '"mask",', '"bathtub",', '"bath towel",']
+2024-08-31 18:31:57,305 - main - INFO - Tags saved to database for 317009078_2115628711965612_5740521442233243612_n.jpg: ['"hair dryer",', '"lipstick",', '"mask",', '"bathtub",', '"bath towel",']
+2024-08-31 18:31:57,310 - main - INFO - Tags saved to database for 317009078_2115628711965612_5740521442233243612_n.jpg: ['"hair dryer",', '"lipstick",', '"mask",', '"bathtub",', '"bath towel",']
+2024-08-31 18:31:57,311 - main - DEBUG - Processed 1 out of 10 images
+2024-08-31 18:31:57,311 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:31:57,311 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:31:57,311 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg
+2024-08-31 18:31:57,445 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\317017476_1250346415526355_2875232753687967979_n.jpg: ['"lipstick",', '"ice pop",', '"hair dryer",', '"safety pin",', '"bath towel",']
+2024-08-31 18:31:57,452 - main - INFO - Tags saved to database for 317017476_1250346415526355_2875232753687967979_n.jpg: ['"lipstick",', '"ice pop",', '"hair dryer",', '"safety pin",', '"bath towel",']
+2024-08-31 18:31:57,457 - main - INFO - Tags saved to database for 317017476_1250346415526355_2875232753687967979_n.jpg: ['"lipstick",', '"ice pop",', '"hair dryer",', '"safety pin",', '"bath towel",']
+2024-08-31 18:31:57,457 - main - DEBUG - Processed 2 out of 10 images
+2024-08-31 18:31:57,457 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:31:57,457 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:31:57,457 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg
+2024-08-31 18:31:57,588 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\317032928_635478051611253_9110387673886695315_n.jpg: ['"lipstick",', '"bath towel",', '"hair dryer",', '"mask",', '"bathtub",']
+2024-08-31 18:31:57,596 - main - INFO - Tags saved to database for 317032928_635478051611253_9110387673886695315_n.jpg: ['"lipstick",', '"bath towel",', '"hair dryer",', '"mask",', '"bathtub",']
+2024-08-31 18:31:57,601 - main - INFO - Tags saved to database for 317032928_635478051611253_9110387673886695315_n.jpg: ['"lipstick",', '"bath towel",', '"hair dryer",', '"mask",', '"bathtub",']
+2024-08-31 18:31:57,601 - main - DEBUG - Processed 3 out of 10 images
+2024-08-31 18:31:57,601 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:57,601 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:57,601 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg
+2024-08-31 18:31:57,739 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\317196737_131367436419094_1850881727585622897_n.jpg: ['"lipstick",', '"hair dryer",', '"mask",', '"ice pop",', '"bath towel",']
+2024-08-31 18:31:57,747 - main - INFO - Tags saved to database for 317196737_131367436419094_1850881727585622897_n.jpg: ['"lipstick",', '"hair dryer",', '"mask",', '"ice pop",', '"bath towel",']
+2024-08-31 18:31:57,752 - main - INFO - Tags saved to database for 317196737_131367436419094_1850881727585622897_n.jpg: ['"lipstick",', '"hair dryer",', '"mask",', '"ice pop",', '"bath towel",']
+2024-08-31 18:31:57,752 - main - DEBUG - Processed 4 out of 10 images
+2024-08-31 18:31:57,752 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:31:57,752 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:31:57,752 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg
+2024-08-31 18:31:57,892 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\409139706_848130380326840_5412985015270451106_n.jpg: ['"wig",', '"abaya",', '"sunglasses",', '"barrette",', '"hair spray",']
+2024-08-31 18:31:57,901 - main - INFO - Tags saved to database for 409139706_848130380326840_5412985015270451106_n.jpg: ['"wig",', '"abaya",', '"sunglasses",', '"barrette",', '"hair spray",']
+2024-08-31 18:31:57,906 - main - INFO - Tags saved to database for 409139706_848130380326840_5412985015270451106_n.jpg: ['"wig",', '"abaya",', '"sunglasses",', '"barrette",', '"hair spray",']
+2024-08-31 18:31:57,906 - main - DEBUG - Processed 5 out of 10 images
+2024-08-31 18:31:57,906 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:31:57,906 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:31:57,906 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg
+2024-08-31 18:31:58,043 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\409188958_657016766590455_3024088115364459602_n.jpg: ['"lipstick",', '"hair dryer",', '"ping-pong ball",', '"barrette",', '"hot dog",']
+2024-08-31 18:31:58,053 - main - INFO - Tags saved to database for 409188958_657016766590455_3024088115364459602_n.jpg: ['"lipstick",', '"hair dryer",', '"ping-pong ball",', '"barrette",', '"hot dog",']
+2024-08-31 18:31:58,057 - main - INFO - Tags saved to database for 409188958_657016766590455_3024088115364459602_n.jpg: ['"lipstick",', '"hair dryer",', '"ping-pong ball",', '"barrette",', '"hot dog",']
+2024-08-31 18:31:58,058 - main - DEBUG - Processed 6 out of 10 images
+2024-08-31 18:31:58,058 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:31:58,058 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:31:58,058 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg
+2024-08-31 18:31:58,201 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\409381013_327279540113296_1078174754258482464_n.jpg: ['"abaya",', '"velvet",', '"cloak",', '"lipstick",', '"sweatshirt",']
+2024-08-31 18:31:58,208 - main - INFO - Tags saved to database for 409381013_327279540113296_1078174754258482464_n.jpg: ['"abaya",', '"velvet",', '"cloak",', '"lipstick",', '"sweatshirt",']
+2024-08-31 18:31:58,213 - main - INFO - Tags saved to database for 409381013_327279540113296_1078174754258482464_n.jpg: ['"abaya",', '"velvet",', '"cloak",', '"lipstick",', '"sweatshirt",']
+2024-08-31 18:31:58,213 - main - DEBUG - Processed 7 out of 10 images
+2024-08-31 18:31:58,213 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:31:58,213 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:31:58,213 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg
+2024-08-31 18:31:58,352 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\409384808_379562834469703_3994063111412072379_n.jpg: ['"lipstick",', '"scarf",', '"hair spray",', '"spider web",', '"filing cabinet",']
+2024-08-31 18:31:58,360 - main - INFO - Tags saved to database for 409384808_379562834469703_3994063111412072379_n.jpg: ['"lipstick",', '"scarf",', '"hair spray",', '"spider web",', '"filing cabinet",']
+2024-08-31 18:31:58,365 - main - INFO - Tags saved to database for 409384808_379562834469703_3994063111412072379_n.jpg: ['"lipstick",', '"scarf",', '"hair spray",', '"spider web",', '"filing cabinet",']
+2024-08-31 18:31:58,365 - main - DEBUG - Processed 8 out of 10 images
+2024-08-31 18:31:58,365 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:31:58,365 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:31:58,365 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg
+2024-08-31 18:31:58,500 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\409386326_341262268619362_8817199201887382097_n.jpg: ['"abaya",', '"sweatshirt",', '"hair spray",', '"hair dryer",', '"seat belt",']
+2024-08-31 18:31:58,508 - main - INFO - Tags saved to database for 409386326_341262268619362_8817199201887382097_n.jpg: ['"abaya",', '"sweatshirt",', '"hair spray",', '"hair dryer",', '"seat belt",']
+2024-08-31 18:31:58,513 - main - INFO - Tags saved to database for 409386326_341262268619362_8817199201887382097_n.jpg: ['"abaya",', '"sweatshirt",', '"hair spray",', '"hair dryer",', '"seat belt",']
+2024-08-31 18:31:58,513 - main - DEBUG - Processed 9 out of 10 images
+2024-08-31 18:31:58,513 - main - DEBUG - Processing image: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:31:58,513 - main - DEBUG - Processing individual image: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:31:58,513 - main - DEBUG - Generating tags for: C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg
+2024-08-31 18:31:58,652 - main - DEBUG - Generated tags for C:/Users/Stas/Pictures/Camera Roll\410132641_1149917812653015_4331220211198239690_n.jpg: ['"abaya",', '"cassette",', '"mobile phone",', '"iPod",', '"kimono",']
+2024-08-31 18:31:58,661 - main - INFO - Tags saved to database for 410132641_1149917812653015_4331220211198239690_n.jpg: ['"abaya",', '"cassette",', '"mobile phone",', '"iPod",', '"kimono",']
+2024-08-31 18:31:58,667 - main - INFO - Tags saved to database for 410132641_1149917812653015_4331220211198239690_n.jpg: ['"abaya",', '"cassette",', '"mobile phone",', '"iPod",', '"kimono",']
+2024-08-31 18:31:58,667 - main - DEBUG - Processed 10 out of 10 images
+2024-08-31 18:31:58,667 - main - INFO - Image processing task completed
+2024-08-31 18:32:01,193 - main - INFO - Retrieving all tags
