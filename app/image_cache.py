@@ -1,5 +1,10 @@
 from collections import OrderedDict
 from PyQt5.QtGui import QPixmap
+import os
+import json
+
+# Define the cache path
+CACHE_PATH = os.path.join(os.path.dirname(__file__), '../data/image_cache.json')
 
 class ImageCache:
     def __init__(self, max_size=10):
@@ -24,3 +29,13 @@ class ImageCache:
 
     def clear(self):
         self.cache.clear()
+
+def load_cache():
+    if os.path.exists(CACHE_PATH):
+        with open(CACHE_PATH, 'r') as f:
+            return json.load(f)
+    return {}
+
+def save_cache(data):
+    with open(CACHE_PATH, 'w') as f:
+        json.dump(data, f)

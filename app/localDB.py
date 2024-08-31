@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
-DATABASE = 'image_tags.db'
+DATABASE = 'data/image_tags.db'
 
 def create_connection():
     conn = None

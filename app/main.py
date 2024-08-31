@@ -12,11 +12,14 @@ from functools import partial
 import pyexiv2
 from io import BytesIO
 import base64
-import localDB
+from app.localDB import *  # Import all database functions
+from app.image_cache import *  # Import all image caching functions
+from app.text_extract import *  # Import all text extraction functions
 import logging
 
+
 # Set up logging
-logging.basicConfig(filename='main_api.log', level=logging.DEBUG, 
+logging.basicConfig(filename='./logs/main_api.log', level=logging.DEBUG, 
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -56,7 +59,7 @@ preprocess = transforms.Compose([
 
 # Load ImageNet class labels
 logger.info("Loading ImageNet class labels")
-with open("imagenet_classes.txt", "r") as f:
+with open("./app/imagenet_classes.txt", "r") as f:
     categories = [s.strip() for s in f.readlines()]
 
 @app.get("/")

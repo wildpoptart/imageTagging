@@ -1,6 +1,6 @@
 from PIL import Image
 import pytesseract
-import localDB
+from . import localDB
 
 def extract_text_from_image(image_path):
     """Extract text from an image and return it as a string."""
