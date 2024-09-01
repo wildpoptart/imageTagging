@@ -33,7 +33,8 @@ class LocalDB:
                          (id INTEGER PRIMARY KEY AUTOINCREMENT,
                           name TEXT NOT NULL UNIQUE,
                           tags TEXT,
-                          file_location TEXT)''')  # New column for file location
+                          file_location TEXT,
+                          processed BOOLEAN NOT NULL DEFAULT 0)''')  # New column for processed status
         except Error as e:
             print(e)
 
@@ -132,6 +133,11 @@ class LocalDB:
             return "gray"  # Default color
 
     def save_tags(self, image_name, tags, file_location):
+        # Check if the image has already been processed
+        if self.is_processed(image_name):
+            print(f"{image_name} has already been processed. Skipping.")
+            return
+
         # Add color tags to the existing tags
         color_tags = self.get_main_colors(file_location)  # Get colors from the image
         tags.extend(color_tags)  # Combine existing tags with color tags
@@ -141,8 +147,8 @@ class LocalDB:
         with conn:
             c = conn.cursor()
             tags_str = ', '.join(tags)
-            c.execute("INSERT OR REPLACE INTO images (name, tags, file_location) VALUES (?, ?, ?)",
-                      (image_name, tags_str, file_location))
+            c.execute("INSERT OR REPLACE INTO images (name, tags, file_location, processed) VALUES (?, ?, ?, ?)",
+                      (image_name, tags_str, file_location, True))  # Set processed to True
 
     def get_tags(self, image_name):
         conn = self.create_connection()
@@ -189,3 +195,11 @@ class LocalDB:
         self.create_table(conn)  # Recreate the table
         conn.commit()
         conn.close()
+
+    def is_processed(self, image_name):
+        conn = self.create_connection()
+        with conn:
+            c = conn.cursor()
+            c.execute("SELECT processed FROM images WHERE name = ?", (image_name,))
+            result = c.fetchone()
+            return result[0] == 1 if result else False  # Return True if processed, else False
