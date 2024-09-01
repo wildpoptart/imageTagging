@@ -243,10 +243,10 @@ class ImageTaggerApp(QMainWindow):
             self.tags_list.addItem(tag)
 
         # Update UI to reflect whether the image is processed or not
-        if file_location == os.path.join(self.selected_folder, filename):
-            self.status_label.setText("Unprocessed image")
-        else:
+        if self.localDB.is_processed(filename):
             self.status_label.setText("Processed image")
+        else:
+            self.status_label.setText("Unprocessed image")
 
     def on_image_loaded(self, result, image_path):
         if result is None:
@@ -268,16 +268,38 @@ class ImageTaggerApp(QMainWindow):
             self.tags_list.addItem(item)
         logger.debug(f"Updated tags for {filename}: {tags}")
 
+    def add_tag(self):
+        if self.image_list.currentItem():
+            new_tag = self.new_tag_input.text().strip()
+            if new_tag:
+                self.tags_list.addItem(new_tag)
+                self.new_tag_input.clear()
+            else:
+                QMessageBox.warning(self, "Invalid Tag", "Please enter a non-empty tag.")
+        else:
+            QMessageBox.warning(self, "No Image Selected", "Please select an image before adding a tag.")
+
     def save_tags(self):
-        logger.info("Saving tags")
         if self.image_list.currentItem():
             filename = self.image_list.currentItem().text()
             tags = [self.tags_list.item(i).text() for i in range(self.tags_list.count())]
-            self.localDB.save_tags(filename, tags)
-            self.send_tags_to_backend(filename, tags)
-            self.update_file_count()  # Update count after saving tags
+            
+            # Get the file location (works for both processed and unprocessed images)
+            file_location = self.localDB.get_file_location(filename)
+            if not file_location:
+                file_location = os.path.join(self.selected_folder, filename)
+
+            # Save tags to the database
+            self.localDB.save_tags(filename, tags, file_location)
+            
+            # Update UI
+            self.status_label.setText("Tags saved")
+            QMessageBox.information(self, "Tags Saved", f"Tags for {filename} have been saved.")
+            
+            # Update file count
+            self.update_file_count()
         else:
-            logger.warning("No image selected for saving tags")
+            QMessageBox.warning(self, "No Image Selected", "Please select an image before saving tags.")
 
     def send_tags_to_backend(self, filename, tags):
         logger.info(f"Sending tags to backend for {filename}")
@@ -364,21 +386,6 @@ class ImageTaggerApp(QMainWindow):
             logger.warning("Failed to retrieve tags after multiple attempts")
             self.status_label.setText("Failed to retrieve tags after multiple attempts")
             self.timer.stop()
-
-    def add_tag(self):
-        logger.info("Adding new tag")
-        new_tag = self.new_tag_input.text().strip()
-        if new_tag and self.image_list.currentItem():
-            filename = self.image_list.currentItem().text()
-            file_location = os.path.join(self.selected_folder, filename)  # Get the full file path
-            tags = localDB.get_tags(filename)
-            tags.append(new_tag)
-            localDB.save_tags(filename, tags, file_location)  # Pass file_location here
-            self.update_tags(filename)
-            self.new_tag_input.clear()
-            logger.info(f"Added new tag '{new_tag}' to {filename}")
-        else:
-            logger.warning("Failed to add tag: No tag entered or no image selected")
 
     def show_context_menu(self, pos):
         item = self.image_list.itemAt(pos)
