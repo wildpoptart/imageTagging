@@ -8,8 +8,11 @@ import requests
 from PIL import Image
 import io
 import gc
-from image_cache import ImageCache
-import localDB
+from .image_cache import ImageCache
+from .localDB import LocalDB
+
+# Create an instance of LocalDB
+localDB = LocalDB()
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG,  # Change to DEBUG to see all logs
@@ -371,10 +374,3 @@ class SettingsWindow(QDialog):
             localDB.reset_database()  # Call the function to reset the database
             QMessageBox.information(self, 'Database Reset', "Database has been reset.")
             self.close()
-
-if __name__ == "__main__":
-    logger.info("Starting application")
-    app = QApplication(sys.argv)
-    window = ImageTaggerApp()
-    window.show()
-    sys.exit(app.exec_())

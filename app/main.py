@@ -12,10 +12,14 @@ from functools import partial
 import pyexiv2
 from io import BytesIO
 import base64
-from app.localDB import *  # Import all database functions
 from app.image_cache import *  # Import all image caching functions
 from app.text_extract import *  # Import all text extraction functions
 import logging
+
+from .localDB import LocalDB
+
+# Create an instance of LocalDB
+localDB = LocalDB()
 
 
 # Set up logging
@@ -192,8 +196,3 @@ def save_tags_to_image(file_path, tags):
 # Initialize the database
 logger.info("Initializing database")
 localDB.initialize_db()
-
-if __name__ == "__main__":
-    import uvicorn
-    logger.info("Starting FastAPI server")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
