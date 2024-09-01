@@ -1,6 +1,7 @@
 import sys
 import os
 import logging
+import subprocess
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, 
     QWidget, QLabel, QFileDialog, QListWidget, QLineEdit, QListWidgetItem, 
@@ -14,6 +15,9 @@ import io
 import gc
 from .image_cache import ImageCache
 from .localDB import LocalDB
+
+from app.face_detect import face_detection_thread
+import threading
 
 # Create an instance of LocalDB
 localDB = LocalDB()
@@ -68,7 +72,11 @@ class ImageTaggerApp(QMainWindow):
         self.image_cache = ImageCache(max_size=10)
         self.localDB = LocalDB()  # Initialize LocalDB
         self.stop_server_func = stop_server_func
+        self.clear_logs()  # Clear logs when the app starts
+        self.processed_images = set()  # Set to track processed images
+        self.initUI()  # Initialize the UI components
 
+    def initUI(self):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
 
@@ -93,7 +101,7 @@ class ImageTaggerApp(QMainWindow):
         left_layout.addWidget(self.file_count_label)
 
         self.image_list = QListWidget()
-        self.image_list.itemClicked.connect(self.display_image)
+        self.image_list.itemClicked.connect(self.on_image_click)
         left_layout.addWidget(self.image_list)
 
         self.process_button = QPushButton("Process Images")
@@ -154,6 +162,16 @@ class ImageTaggerApp(QMainWindow):
         # Update file count on startup
         self.update_file_count()
 
+    def clear_logs(self):
+        log_files = [os.path.join('logs', f) for f in os.listdir('logs') if f.endswith('.log')]
+        for log_file in log_files:
+            if os.path.exists(log_file):
+                with open(log_file, 'w') as f:
+                    f.truncate(0)  # Empty the contents of the file
+                print(f"Cleared contents of log file: {log_file}")
+            else:
+                print("Log file does not exist, nothing to clear.")
+
     def update_file_count(self):
         file_count = self.localDB.count_files()
         self.file_count_label.setText(f"Files in database: {file_count}")
@@ -193,9 +211,9 @@ class ImageTaggerApp(QMainWindow):
                 self.image_list.addItem(filename)
         logger.info(f"Loaded {self.image_list.count()} images")
 
-    def display_image(self, item):
+    def on_image_click(self, item):
         if item is None:
-            logger.warning("No item selected for display")
+            logger.warning("No item selected")
             return
 
         filename = item.text()
@@ -207,9 +225,19 @@ class ImageTaggerApp(QMainWindow):
 
         if not os.path.exists(file_location):
             logger.error(f"File does not exist: {file_location}")
-            self.image_label.setText("Image file not found on disk")
+            self.status_label.setText("Image file not found on disk")
             return
 
+        # Display the image
+        self.display_image(file_location)
+
+        # Update UI to reflect whether the image is processed or not
+        if self.localDB.is_processed(filename):
+            self.status_label.setText("Processed image")
+        else:
+            self.status_label.setText("Unprocessed image")
+
+    def display_image(self, file_location):
         logger.info(f"Attempting to display image: {file_location}")
         
         self.image_label.clear()
@@ -237,16 +265,11 @@ class ImageTaggerApp(QMainWindow):
         self.image_label.setScaledContents(True)
 
         # Fetch and display tags
+        filename = os.path.basename(file_location)
         tags = self.localDB.get_tags(filename) or []  # Use an empty list if no tags are found
         self.tags_list.clear()
         for tag in tags:
             self.tags_list.addItem(tag)
-
-        # Update UI to reflect whether the image is processed or not
-        if self.localDB.is_processed(filename):
-            self.status_label.setText("Processed image")
-        else:
-            self.status_label.setText("Unprocessed image")
 
     def on_image_loaded(self, result, image_path):
         if result is None:
@@ -347,6 +370,14 @@ class ImageTaggerApp(QMainWindow):
                 self.status_label.setText("Processing started. Please wait...")
                 self.processing_attempts = 0
                 self.timer.start(2000)  # Check every 2 seconds
+
+                # Start face detection in a separate thread for each image
+                for filename in os.listdir(self.selected_folder):
+                    if self.is_supported_image(filename):
+                        file_path = os.path.join(self.selected_folder, filename)
+                        threading.Thread(target=face_detection_thread, args=(file_path, self.localDB), daemon=True).start()
+                        self.processed_images.add(filename)  # Mark the image as processed
+
                 self.update_file_count()  # Update count after processing images
             else:
                 logger.error(f"Failed to start processing. Status code: {response.status_code}")
@@ -396,12 +427,23 @@ class ImageTaggerApp(QMainWindow):
             context_menu.exec_(self.image_list.viewport().mapToGlobal(pos))
 
     def show_in_explorer(self, filename):
-        image_path = os.path.join(self.selected_folder, filename)
-        print(image_path)
-        if os.path.exists(image_path):
-            os.startfile(image_path)  # For Windows
+        file_location = self.localDB.get_file_location(filename)
+        if not file_location:
+            file_location = os.path.join(self.selected_folder, filename)
+        
+        directory = os.path.dirname(file_location)
+        
+        if os.path.exists(directory):
+            if os.name == 'nt':  # For Windows
+                os.startfile(directory)
+            elif os.name == 'posix':  # For macOS and Linux
+                if sys.platform == 'darwin':  # macOS
+                    subprocess.Popen(['open', directory])
+                else:  # Linux
+                    subprocess.Popen(['xdg-open', directory])
         else:
-            logger.warning(f"File does not exist: {image_path}")
+            logger.warning(f"Directory does not exist: {directory}")
+            QMessageBox.warning(self, "Directory Not Found", f"The directory for {filename} could not be found.")
 
     def open_settings(self):
         settings_window = SettingsWindow(self)
