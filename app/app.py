@@ -1,9 +1,13 @@
 import sys
 import os
 import logging
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QFileDialog, QListWidget, QLineEdit, QListWidgetItem, QMessageBox, QMenu, QDialog, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import (
+    QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, 
+    QWidget, QLabel, QFileDialog, QListWidget, QLineEdit, QListWidgetItem, 
+    QMessageBox, QMenu, QDialog
+)
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import Qt, QThreadPool, QRunnable, pyqtSlot, QObject, pyqtSignal, QTimer
+from PyQt5.QtCore import Qt, QThreadPool, QRunnable, pyqtSlot, QObject, pyqtSignal, QTimer, QEvent
 import requests
 from PIL import Image
 import io
@@ -55,13 +59,15 @@ class ImageLoader(QRunnable):
             gc.collect()
 
 class ImageTaggerApp(QMainWindow):
-    def __init__(self):
+    def __init__(self, stop_server_func):
         super().__init__()
         logger.info("Initializing ImageTaggerApp")
         self.setWindowTitle("Image Tagger")
         self.setGeometry(100, 100, 1000, 600)
 
         self.image_cache = ImageCache(max_size=10)
+        self.localDB = LocalDB()  # Initialize LocalDB
+        self.stop_server_func = stop_server_func
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -81,6 +87,10 @@ class ImageTaggerApp(QMainWindow):
 
         self.status_label = QLabel("No folder selected")
         left_layout.addWidget(self.status_label)
+
+        # Add file count label
+        self.file_count_label = QLabel("Files in database: 0")
+        left_layout.addWidget(self.file_count_label)
 
         self.image_list = QListWidget()
         self.image_list.itemClicked.connect(self.display_image)
@@ -141,6 +151,13 @@ class ImageTaggerApp(QMainWindow):
         self.image_list.setContextMenuPolicy(Qt.CustomContextMenu)
         self.image_list.customContextMenuRequested.connect(self.show_context_menu)
 
+        # Update file count on startup
+        self.update_file_count()
+
+    def update_file_count(self):
+        file_count = self.localDB.count_files()
+        self.file_count_label.setText(f"Files in database: {file_count}")
+
     def is_supported_image(self, filename):
         return filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic'))
 
@@ -182,24 +199,54 @@ class ImageTaggerApp(QMainWindow):
             return
 
         filename = item.text()
-        image_path = os.path.join(self.selected_folder, filename)
-        logger.info(f"Displaying image: {image_path}")
+        file_location = self.localDB.get_file_location(filename)
+        
+        # If the file is not in the database, assume it's in the selected folder
+        if not file_location:
+            file_location = os.path.join(self.selected_folder, filename)
+
+        if not os.path.exists(file_location):
+            logger.error(f"File does not exist: {file_location}")
+            self.image_label.setText("Image file not found on disk")
+            return
+
+        logger.info(f"Attempting to display image: {file_location}")
         
         self.image_label.clear()
         self.image_label.setText("Loading...")
 
-        cached_pixmap = self.image_cache.get(image_path)
-        if cached_pixmap:
-            logger.debug(f"Image found in cache: {image_path}")
-            self.on_image_loaded(cached_pixmap, image_path)
-        else:
-            logger.debug(f"Loading image from disk: {image_path}")
-            gc.collect()
-            loader = ImageLoader(image_path)
-            loader.signals.result.connect(self.on_image_loaded)
-            self.threadpool.start(loader)
+        pixmap = self.image_cache.get(file_location)
+        if pixmap is None:
+            try:
+                image = QImage(file_location)
+                if image.isNull():
+                    logger.error(f"Failed to load image: {file_location}")
+                    self.image_label.setText("Failed to load image")
+                    return
+                pixmap = QPixmap.fromImage(image)
+                self.image_cache.set(file_location, pixmap)
+            except Exception as e:
+                logger.exception(f"Error loading image {file_location}: {str(e)}")
+                self.image_label.setText(f"Error loading image: {str(e)}")
+                return
 
-        self.update_tags(filename)
+        max_width = 300  # Set your desired maximum width
+        max_height = 300  # Set your desired maximum height
+        self.image_label.setMaximumSize(max_width, max_height)
+        self.image_label.setPixmap(pixmap)
+        self.image_label.setScaledContents(True)
+
+        # Fetch and display tags
+        tags = self.localDB.get_tags(filename) or []  # Use an empty list if no tags are found
+        self.tags_list.clear()
+        for tag in tags:
+            self.tags_list.addItem(tag)
+
+        # Update UI to reflect whether the image is processed or not
+        if file_location == os.path.join(self.selected_folder, filename):
+            self.status_label.setText("Unprocessed image")
+        else:
+            self.status_label.setText("Processed image")
 
     def on_image_loaded(self, result, image_path):
         if result is None:
@@ -226,8 +273,9 @@ class ImageTaggerApp(QMainWindow):
         if self.image_list.currentItem():
             filename = self.image_list.currentItem().text()
             tags = [self.tags_list.item(i).text() for i in range(self.tags_list.count())]
-            localDB.save_tags(filename, tags)
+            self.localDB.save_tags(filename, tags)
             self.send_tags_to_backend(filename, tags)
+            self.update_file_count()  # Update count after saving tags
         else:
             logger.warning("No image selected for saving tags")
 
@@ -277,6 +325,7 @@ class ImageTaggerApp(QMainWindow):
                 self.status_label.setText("Processing started. Please wait...")
                 self.processing_attempts = 0
                 self.timer.start(2000)  # Check every 2 seconds
+                self.update_file_count()  # Update count after processing images
             else:
                 logger.error(f"Failed to start processing. Status code: {response.status_code}")
                 self.status_label.setText("Failed to start processing")
@@ -341,6 +390,7 @@ class ImageTaggerApp(QMainWindow):
 
     def show_in_explorer(self, filename):
         image_path = os.path.join(self.selected_folder, filename)
+        print(image_path)
         if os.path.exists(image_path):
             os.startfile(image_path)  # For Windows
         else:
@@ -349,6 +399,11 @@ class ImageTaggerApp(QMainWindow):
     def open_settings(self):
         settings_window = SettingsWindow(self)
         settings_window.exec_()  # Open the settings window
+
+    def closeEvent(self, event):
+        print("Closing application and stopping server...")
+        self.stop_server_func()
+        super().closeEvent(event)
 
 class SettingsWindow(QDialog):
     def __init__(self, parent=None):
@@ -374,3 +429,14 @@ class SettingsWindow(QDialog):
             localDB.reset_database()  # Call the function to reset the database
             QMessageBox.information(self, 'Database Reset', "Database has been reset.")
             self.close()
+
+class CloseHandler(QObject):
+    def __init__(self, stop_server_func):
+        super().__init__()
+        self.stop_server_func = stop_server_func
+
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.Close:
+            print("Application is closing. Stopping server...")
+            self.stop_server_func()
+        return super().eventFilter(obj, event)

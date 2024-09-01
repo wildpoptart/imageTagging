@@ -18,6 +18,15 @@ class ImageCache:
             return self.cache[key]
         return None
 
+    def set(self, key, value):
+        if key in self.cache:
+            # If the key exists, update its value and move it to the end
+            self.cache.move_to_end(key)
+        elif len(self.cache) >= self.max_size:
+            # If the cache is full, remove the least recently used item
+            self.cache.popitem(last=False)
+        self.cache[key] = value
+        
     def put(self, key, value):
         if key in self.cache:
             # If key already exists, move it to the end

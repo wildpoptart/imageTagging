@@ -203,3 +203,19 @@ class LocalDB:
             c.execute("SELECT processed FROM images WHERE name = ?", (image_name,))
             result = c.fetchone()
             return result[0] == 1 if result else False  # Return True if processed, else False
+
+    def count_files(self):
+        conn = self.create_connection()
+        with conn:
+            c = conn.cursor()
+            c.execute("SELECT COUNT(*) FROM images")
+            count = c.fetchone()[0]  # Get the count from the result
+        return count
+
+    def get_file_location(self, image_name):
+        conn = self.create_connection()
+        with conn:
+            c = conn.cursor()
+            c.execute("SELECT file_location FROM images WHERE name = ?", (image_name,))
+            result = c.fetchone()
+            return result[0] if result else None
