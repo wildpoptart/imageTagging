@@ -5,7 +5,7 @@ import subprocess
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, 
     QWidget, QLabel, QFileDialog, QListWidget, QLineEdit, QListWidgetItem, 
-    QMessageBox, QMenu, QDialog
+    QMessageBox, QMenu, QDialog, QCheckBox
 )
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt, QThreadPool, QRunnable, pyqtSlot, QObject, pyqtSignal, QTimer, QEvent
@@ -17,7 +17,6 @@ from .image_cache import ImageCache
 from .localDB import LocalDB
 
 from app.face_detect import face_detection_thread
-import threading
 
 # Create an instance of LocalDB
 localDB = LocalDB()
@@ -62,6 +61,16 @@ class ImageLoader(QRunnable):
         finally:
             gc.collect()
 
+class FaceDetectionTask(QRunnable):
+    def __init__(self, file_path, localDB):
+        super().__init__()
+        self.file_path = file_path
+        self.localDB = localDB
+
+    @pyqtSlot()
+    def run(self):
+        face_detection_thread(self.file_path, self.localDB)  # Call the existing face detection function
+
 class ImageTaggerApp(QMainWindow):
     def __init__(self, stop_server_func):
         super().__init__()
@@ -75,6 +84,7 @@ class ImageTaggerApp(QMainWindow):
         self.clear_logs()  # Clear logs when the app starts
         self.processed_images = set()  # Set to track processed images
         self.initUI()  # Initialize the UI components
+        self.threadpool = QThreadPool()  # Initialize the thread pool
 
     def initUI(self):
         central_widget = QWidget()
@@ -92,6 +102,11 @@ class ImageTaggerApp(QMainWindow):
         self.folder_button = QPushButton("Select Folder")
         self.folder_button.clicked.connect(self.select_folder)
         left_layout.addWidget(self.folder_button)
+
+        # Create a checkbox for recursive folder finding
+        self.recursive_checkbox = QCheckBox("Allow recursive folder image finding", self)
+        self.recursive_checkbox.setChecked(False)  # Default to unchecked
+        left_layout.addWidget(self.recursive_checkbox)
 
         self.status_label = QLabel("No folder selected")
         left_layout.addWidget(self.status_label)
@@ -150,7 +165,6 @@ class ImageTaggerApp(QMainWindow):
         right_layout.addWidget(self.save_button)
 
         self.selected_folder = ""
-        self.threadpool = QThreadPool()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.check_processing_status)
         self.processing_attempts = 0
@@ -177,7 +191,7 @@ class ImageTaggerApp(QMainWindow):
         self.file_count_label.setText(f"Files in database: {file_count}")
 
     def is_supported_image(self, filename):
-        return filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic'))
+        return filename.lower().endswith(('.png', '.jpg', '.jpeg'))
 
     def select_folder(self):
         logger.info("Selecting folder")
@@ -186,11 +200,42 @@ class ImageTaggerApp(QMainWindow):
             logger.info(f"Folder selected: {folder}")
             self.selected_folder = folder
             self.status_label.setText(f"Selected folder: {folder}")
-            self.send_folder_to_backend(folder)
-            self.load_images()
-            self.image_cache.clear()
+            self.process_folder(folder)
         else:
             logger.info("No folder selected")
+
+    def process_folder(self, folder):
+        allow_recursive = self.recursive_checkbox.isChecked()
+        
+        if allow_recursive:
+            self.find_images_recursively(folder)
+        else:
+            self.find_images_in_folder(folder)
+
+    def find_images_recursively(self, folder):
+        for root, dirs, files in os.walk(folder):
+            for file in files:
+                if file.lower().endswith('.heic'):
+                    logger.warning(f"Skipping unsupported HEIC file: {file}")
+                elif self.is_supported_image(file):
+                    full_path = os.path.join(root, file)
+                    self.localDB.save_tags(file, [], full_path)
+        self.update_file_count()
+        self.send_folder_to_backend(folder)
+        self.load_images()
+        self.image_cache.clear()
+
+    def find_images_in_folder(self, folder):
+        for file in os.listdir(folder):
+            if file.lower().endswith('.heic'):
+                logger.warning(f"Skipping unsupported HEIC file: {file}")
+            elif self.is_supported_image(file):
+                full_path = os.path.join(folder, file)
+                self.localDB.save_tags(file, [], full_path)
+        self.update_file_count()
+        self.send_folder_to_backend(folder)
+        self.load_images()
+        self.image_cache.clear()
 
     def send_folder_to_backend(self, folder):
         logger.info(f"Sending folder to backend: {folder}")
@@ -230,12 +275,6 @@ class ImageTaggerApp(QMainWindow):
 
         # Display the image
         self.display_image(file_location)
-
-        # Update UI to reflect whether the image is processed or not
-        if self.localDB.is_processed(filename):
-            self.status_label.setText("Processed image")
-        else:
-            self.status_label.setText("Unprocessed image")
 
     def display_image(self, file_location):
         logger.info(f"Attempting to display image: {file_location}")
@@ -371,11 +410,12 @@ class ImageTaggerApp(QMainWindow):
                 self.processing_attempts = 0
                 self.timer.start(2000)  # Check every 2 seconds
 
-                # Start face detection in a separate thread for each image
+                # Start face detection in a thread pool for each image
                 for filename in os.listdir(self.selected_folder):
                     if self.is_supported_image(filename):
                         file_path = os.path.join(self.selected_folder, filename)
-                        threading.Thread(target=face_detection_thread, args=(file_path, self.localDB), daemon=True).start()
+                        task = FaceDetectionTask(file_path, self.localDB)
+                        self.threadpool.start(task)  # Start the task in the thread pool
                         self.processed_images.add(filename)  # Mark the image as processed
 
                 self.update_file_count()  # Update count after processing images
@@ -435,10 +475,10 @@ class ImageTaggerApp(QMainWindow):
         
         if os.path.exists(directory):
             if os.name == 'nt':  # For Windows
-                os.startfile(directory)
+                subprocess.Popen(f'explorer /select,"{file_location}"')
             elif os.name == 'posix':  # For macOS and Linux
                 if sys.platform == 'darwin':  # macOS
-                    subprocess.Popen(['open', directory])
+                    subprocess.Popen(['open', '-R', file_location])
                 else:  # Linux
                     subprocess.Popen(['xdg-open', directory])
         else:
